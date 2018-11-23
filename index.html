@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>JSelect.js演示</title>
+	<link rel="stylesheet" type="text/css" href="css/JSelect.css">
+</head>
+<body>
+<input class="Addr" type="" name="">
+</body>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/JSelect.js"></script>
+<script type="text/javascript">
+	var obj = new JSelect($(".Addr").eq(0), 4, [],
+        [function(pid, callback) {
+        	setTimeout(function() {
+				callback(0, {
+		            "11":"北京市",
+		            "12":"天津市A",
+		            "13":"河北省A",
+		            "32":"江苏省",
+		            "33":"浙江省"
+		        })
+        	}, 500)
+	    }, function(pid, callback) {
+	        setTimeout(function() {
+	        	if(pid == '32') {
+					callback(1, {
+			            "3201":"南京市",
+			            "3202":"苏州市"
+			        })
+	        	}else if(pid == '33') {
+					callback(1, {
+			            "3301":"衢州市",
+			            "3302":"绍兴市",
+			            "3303":"温州市"
+			        })
+	        	}else if(pid == '11') {
+					callback(1, {
+			            "1101":"朝阳区",
+			            "1102":"东城区",
+			        })
+	        	} else {
+	        		callback(1, {})
+	        	}
+        	}, 500)
+	    }, function(pid, callback) {
+	        setTimeout(function() {
+	        	if(pid == '3303') {
+	        		callback(2, {
+			            "330382":"乐清市",
+			            "330383":"龙湾区"
+			        })
+	        	}else if(pid == '1101') {
+	        		callback(2, {
+			            "110101":"朝阳区A",
+			            "110102":"朝阳区B"
+			        })
+	        	} else {
+	        		callback(2, {})
+	        	}
+        	}, 500)
+	    }, function(pid, callback) {
+	        setTimeout(function() {
+				if(pid == '330382') {
+	        		callback(3, {
+			            "33038201":"乐成镇",
+			            "33038202":"柳市镇"
+			        })
+	        	} else if(pid == '110101') {
+					callback(3, {
+			            "11010101":"朝阳区AA",
+			            "11010102":"朝阳区AB"
+			        })
+	        	} else {
+	        		callback(3, {})
+	        	}
+        	}, 500)
+	    }, function(pid, callback) {
+	        setTimeout(function() {
+				if(pid == '33038201') {
+	        		callback(4, {
+			            "3303820101":"乐成镇街道1",
+			            "3303820102":"乐成镇街道2"
+			        })
+	        	} else if(pid == '33038202') {
+	        		callback(4, {
+			            "3303820201":"柳市镇街道1",
+			            "3303820202":"柳市镇街道2"
+			        })
+	        	} else {
+	        		callback(4, {})
+	        	}
+        	}, 500)
+	    }], function(level, index, arr) {
+			if(!(/.*省$/gi.test(arr[0].name))) {
+				return level - 1
+			}
+			return level
+	    });
+	obj.init();
+</script>
+</html>
